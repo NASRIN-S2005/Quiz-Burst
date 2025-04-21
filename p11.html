@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizBurst</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff;
+            color: #333;
+            background-image: url('https://example.com/background.jpg'); /* Replace with a unique background image URL */
+            background-size: cover;
+            background-position: center;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s;
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            animation: slideIn 0.5s;
+        }
+        .question {
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+        .question:hover {
+            transform: scale(1.02);
+        }
+        .submit-btn, .refresh-btn {
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .submit-btn:hover, .refresh-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>QuizBurst</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <label>1. What is the default value of a boolean variable in Java?</label><br>
+                <input type="radio" name="q1" value="true"> true<br>
+                <input type="radio" name="q1" value="false"> false<br>
+                <input type="radio" name="q1" value="null"> null<br>
+            </div>
+            <div class="question">
+                <label>2. Which of the following is not a Java keyword?</label><br>
+                <input type="radio" name="q2" value="static"> static<br>
+                <input type="radio" name="q2" value="void"> void<br>
+                <input type="radio" name="q2" value="main"> main<br>
+            </div>
+            <div class="question">
+                <label>3. What is the size of an int variable in Java?</label><br>
+                <input type="radio" name="q3" value="16 bits"> 16 bits<br>
+                <input type="radio" name="q3" value="32 bits"> 32 bits<br>
+                <input type="radio" name="q3" value="64 bits"> 64 bits<br>
+            </div>
+            <div class="question">
+                <label>4. Which of the following is a valid declaration of a char?</label><br>
+                <input type="radio" name="q4" value="'a'"> 'a'<br>
+                <input type="radio" name="q4" value="\"a\""> "a"<br>
+                <input type="radio" name="q4" value="a"> a<br>
+            </div>
+            <div class="question">
+                <label>5. What is the output of the following code: System.out.println(1 + 2 + "3");?</label><br>
+                <input type="radio" name="q5" value="33"> 33<br>
+                <input type="radio" name="q5" value="6"> 6<br>
+                <input type="radio" name="q5" value="123"> 123<br>
+            </div>
+            <div class="question">
+                <label>6. Which of the following is used to create an object in Java?</label><br>
+                <input type="radio" name="q6" value="new"> new<br>
+                <input type="radio" name="q6" value="create"> create<br>
+                <input type="radio" name="q6" value="object"> object<br>
+            </div>
+            <div class="question">
+                <label>7. What is the main method signature in Java?</label><br>
+                <input type="radio" name="q7" value="public static void main(String args[])"> public static void main(String args[])<br>
+                <input type="radio" name="q7" value="public void main(String args[])"> public void main(String args[])<br>
+                <input type="radio" name="q7" value="static void main(String args[])"> static void main(String args[])<br>
+            </div>
+            <div class="question">
+                <label>8. Which of the following is a valid comment in Java?</label><br>
+                <input type="radio" name="q8" value="// comment"> // comment<br>
+                <input type="radio" name="q8" value="/* comment */"> /* comment */<br>
+                <input type="radio" name="q8" value="Both"> Both<br>
+            </div>
+            <div class="question">
+                <label>9. What is the purpose of the 'this' keyword in Java?</label><br>
+                <input type="radio" name="q9" value="Refers to the current object"> Refers to the current object<br>
+                <input type="radio" name="q9" value="Refers to the parent class"> Refers to the parent class<br>
+                <input type="radio" name="q9" value="Refers to the static method"> Refers to the static method<br>
+            </div>
+            <div class="question">
+                <label>10. Which of the following is not a primitive data type in Java?</label><br>
+                <input type="radio" name="q10" value="int"> int<br>
+                <input type="radio" name="q10" value="String"> String<br>
+                <input type="radio" name="q10" value="char"> char<br>
+            </div>
+            <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
+            <button type="button" class="refresh-btn" onclick="refreshQuiz()">Refresh</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            const form = document.getElementById('quiz-form');
+            const resultDiv = document.getElementById('result');
+            let score = 0;
+
+            if (form.q1.value === "true") score++;
+            if (form.q2.value === "main") score++;
+            if (form.q3.value === "32 bits") score++;
+            if (form.q4.value === "'a'") score++;
+            if (form.q5.value === "33") score++;
+            if (form.q6.value === "new") score++;
+            if (form.q7.value === "public static void main(String args[])") score++;
+            if (form.q8.value === "Both") score++;
+            if (form.q9.value === "Refers to the current object") score++;
+            if (form.q10.value === "String") score++;
+
+            resultDiv.innerHTML = `Your score: ${score} out of 10`;
+        }
+
+        function refreshQuiz() {
+            document.getElementById('quiz-form').reset();
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
